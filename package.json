@@ -8,6 +8,10 @@
     },
     "author": "Bowden Kelly",
     "license": "MIT",
+    "_moduleAliases": {
+        "@routers": "dist/routers",
+        "@models": "dist/models"
+    },
     "scripts": {
         "build": "npm run build-sass && npm run build-ts && npm run lint && npm run copy-static-assets",
         "build-sass": "node-sass src/public/css/main.scss dist/public/css/main.css",
@@ -42,6 +46,7 @@
         "fbgraph": "^1.4.4",
         "lodash": "^4.17.19",
         "lusca": "^1.6.1",
+        "module-alias": "^2.2.2",
         "mongoose": "^5.7.5",
         "nodemailer": "^6.3.0",
         "passport": "^0.4.0",

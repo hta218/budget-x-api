@@ -21,7 +21,7 @@ const itemSchema = new mongoose.Schema({
 
 export async function saveItem(item: ItemDocument) {
     return new Promise((resolve, reject) => {
-        const newItem = { ...item }
+        const newItem = new Item(item)
         newItem
             .save()
             .then(resolve)

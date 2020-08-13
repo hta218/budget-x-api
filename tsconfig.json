@@ -8,11 +8,17 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "dist",
-        "baseUrl": ".",
+        "baseUrl": "./src",
         "paths": {
             "*": [
                 "node_modules/*",
                 "src/types/*"
+            ],
+            "@routers/*": [
+                "routers/*"
+            ],
+            "@models/*": [
+                "models/*"
             ]
         }
     },
