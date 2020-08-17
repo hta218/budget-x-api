@@ -28,4 +28,28 @@ export async function saveItem(item: ItemDocument) {
             .catch(reject)
     })
 }
+
+export async function updateItem(item: ItemDocument) {
+    return new Promise((resolve, reject) => {
+        const { _id } = item;
+        if (!_id) {
+            reject("Missing item's id")
+        }
+        Item
+            .findOneAndUpdate({ _id: item._id }, { upsert: true })
+            .exec()
+            .then(resolve)
+            .catch(reject)
+    })
+}
+
+export async function deleteItem(_id: string) {
+    return new Promise((resolve, reject) => {
+        Item
+            .findOneAndDelete({ _id })
+            .exec()
+            .then(resolve)
+            .catch(reject)
+    })
+}
 export const Item = mongoose.model<ItemDocument>("Item", itemSchema);

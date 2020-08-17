@@ -30,7 +30,12 @@ const app = express();
 const mongoUrl = MONGODB_URI;
 mongoose.Promise = bluebird;
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true } ).then(
+mongoose.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+}).then(
     () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
     console.log(`MongoDB connection error. Please make sure MongoDB is running. ${err}`);
@@ -65,17 +70,25 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     // After successful login, redirect back to the intended page
     if (!req.user &&
-    req.path !== "/login" &&
-    req.path !== "/signup" &&
-    !req.path.match(/^\/auth/) &&
-    !req.path.match(/\./)) {
+        req.path !== "/login" &&
+        req.path !== "/signup" &&
+        !req.path.match(/^\/auth/) &&
+        !req.path.match(/\./)) {
         req.session.returnTo = req.path;
     } else if (req.user &&
-    req.path == "/account") {
+        req.path == "/account") {
         req.session.returnTo = req.path;
     }
     next();
 });
+
+app.use((req, res, next) => {
+    const path = req.path;
+    res.on('finish', () => {
+        console.log(`Req: ${req.method} ${res.statusCode} -- ${path}`)
+    })
+    next();
+})
 
 app.use(
     express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
