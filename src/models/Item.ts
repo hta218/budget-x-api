@@ -2,19 +2,19 @@ import mongoose from "mongoose";
 
 export type ItemDocument = mongoose.Document & {
     date: Date,
-    type: string,
+    budget: 'income' | 'expense',
     amount: number,
     description: string,
-    spendingType: string,
+    type: string,
     person: string
 };
 
 const itemSchema = new mongoose.Schema({
     date: { type: Date, default: new Date() },
-    type: String,
+    budget: String,
     amount: Number,
     description: String,
-    spendingType: String,
+    type: { type: mongoose.Types.ObjectId, ref: 'Type' },
     person: String
 }, { timestamps: true });
 
@@ -36,7 +36,7 @@ export async function updateItem(item: ItemDocument) {
             reject("Missing item's id")
         }
         Item
-            .findOneAndUpdate({ _id: item._id }, { upsert: true })
+            .findOneAndUpdate({ _id }, { upsert: true })
             .exec()
             .then(resolve)
             .catch(reject)

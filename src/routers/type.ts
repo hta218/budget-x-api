@@ -9,7 +9,7 @@ const handleError = (err: any, res: Response) => {
 }
 
 router.get('/', (req, res) => {
-  res.json({ msg: 'get item ok' })
+  res.json({ msg: 'get types ok' })
 })
 
 router.post('/', async (req, res) => {
