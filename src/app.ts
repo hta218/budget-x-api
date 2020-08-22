@@ -85,7 +85,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     const path = req.path;
     res.on('finish', () => {
-        console.log(`Req: ${req.method} ${res.statusCode} -- ${path}`)
+        console.log(`${req.method} ${path} -- ${res.statusCode}`)
     })
     next();
 })

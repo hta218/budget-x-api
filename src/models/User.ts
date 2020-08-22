@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export type UserDocument = mongoose.Document & {
+    _id: string
     name: string
     email?: string
     person: string[]

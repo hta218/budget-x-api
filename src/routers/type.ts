@@ -1,5 +1,5 @@
 import express, { Response } from 'express'
-import { saveType, updateType, deleteType } from '@models/Type'
+import { getTypesByUser, saveType, updateType, deleteType } from '@models/Type'
 
 const router = express.Router()
 
@@ -7,8 +7,18 @@ const handleError = (err: any, res: Response) => {
   res.json({ success: 0, err: err.toString() })
 }
 
-router.get('/', (req, res) => {
-  res.json({ msg: 'get types ok' })
+router.get('/', async (req, res) => {
+  try {
+    const userId: any = req.query.userId
+    if(!userId) {
+      res.json({ success: 0, message: "Missing user's id" })
+    } else {
+      const types = await getTypesByUser(userId)
+      res.json({ success: 1, types })
+    }
+  } catch (err) {
+    handleError(err, res)
+  }
 })
 
 router.post('/', async (req, res) => {
@@ -23,9 +33,9 @@ router.post('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
   try {
-    const item = req.body
-    const updatedItem = await updateType(item)
-    res.json({ success: 1, updatedItem })
+    const type = req.body
+    const updatedType = await updateType(type)
+    res.json({ success: 1, updatedType })
   } catch (err) {
     handleError(err, res)
   }
@@ -34,8 +44,8 @@ router.put('/', async (req, res) => {
 router.delete('/', async (req, res) => {
   try {
     const _id: any = req.query._id
-    const deletedItem = await deleteType(_id)
-    res.json({ success: 1, deletedItem })
+    const deletedType = await deleteType(_id)
+    res.json({ success: 1, deletedType })
   } catch (err) {
     handleError(err, res)
   }

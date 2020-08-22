@@ -12,6 +12,16 @@ const typeSchema = new mongoose.Schema({
     description: String
 }, { timestamps: true });
 
+export async function getTypesByUser(userId: string) {
+    return new Promise((resolve, reject) => {
+        Type
+            .find({ userId })
+            .exec()
+            .then(resolve)
+            .catch(reject)
+    })
+}
+
 export async function saveType(type: TypeDocument) {
     return new Promise((resolve, reject) => {
         const newType = new Type(type)

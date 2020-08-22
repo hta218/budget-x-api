@@ -10,7 +10,17 @@ const personSchema = new mongoose.Schema({
     name: String
 }, { timestamps: true });
 
-export async function saveType(person: PersonDocument) {
+export async function getPersonsByUser(userId: string) {
+    return new Promise((resolve, reject) => {
+        Person
+            .find({ userId })
+            .exec()
+            .then(resolve)
+            .catch(reject)
+    })
+}
+
+export async function savePerson(person: PersonDocument) {
     return new Promise((resolve, reject) => {
         const newPerson = new Person(person)
         newPerson
@@ -20,7 +30,7 @@ export async function saveType(person: PersonDocument) {
     })
 }
 
-export async function updateItem(person: PersonDocument) {
+export async function updatePerson(person: PersonDocument) {
     return new Promise((resolve, reject) => {
         const { _id } = person;
         if (!_id) {
@@ -34,7 +44,7 @@ export async function updateItem(person: PersonDocument) {
     })
 }
 
-export async function deleteItem(_id: string) {
+export async function deletePerson(_id: string) {
     return new Promise((resolve, reject) => {
         Person
             .findOneAndDelete({ _id })
