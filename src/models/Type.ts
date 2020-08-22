@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
 
 export type TypeDocument = mongoose.Document & {
+    userId: string
     name: string
     description: string
 };
 
 const typeSchema = new mongoose.Schema({
+    userId: { type: mongoose.Types.ObjectId, ref: 'User' },
     name: String,
     description: String
 }, { timestamps: true });
@@ -20,7 +22,7 @@ export async function saveType(type: TypeDocument) {
     })
 }
 
-export async function updateItem(type: TypeDocument) {
+export async function updateType(type: TypeDocument) {
     return new Promise((resolve, reject) => {
         const { _id } = type;
         if (!_id) {
@@ -34,7 +36,7 @@ export async function updateItem(type: TypeDocument) {
     })
 }
 
-export async function deleteItem(_id: string) {
+export async function deleteType(_id: string) {
     return new Promise((resolve, reject) => {
         Type
             .findOneAndDelete({ _id })

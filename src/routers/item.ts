@@ -4,8 +4,7 @@ import { saveItem, updateItem, deleteItem } from '@models/Item'
 const router = express.Router()
 
 const handleError = (err: any, res: Response) => {
-  console.error("reason", err.reason)
-  res.json({ success: 0, err: err.reason.toString() })
+  res.json({ success: 0, err: err.toString() })
 }
 
 router.get('/', (req, res) => {

@@ -2,7 +2,7 @@
 
 import graph from "fbgraph";
 import { Response, Request, NextFunction } from "express";
-import { UserDocument } from "../models/User";
+import { UserDocument } from "../models/User.backup";
 
 
 /**

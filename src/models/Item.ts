@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 export type ItemDocument = mongoose.Document & {
+    userId: string,
     date: Date,
     budget: 'income' | 'expense',
     amount: number,
@@ -10,6 +11,7 @@ export type ItemDocument = mongoose.Document & {
 };
 
 const itemSchema = new mongoose.Schema({
+    userId: { type: mongoose.Types.ObjectId, ref: 'User' },
     date: { type: Date, default: new Date() },
     budget: String,
     amount: Number,

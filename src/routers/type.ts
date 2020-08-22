@@ -1,11 +1,10 @@
 import express, { Response } from 'express'
-import { saveItem, updateItem, deleteItem } from '@models/Item'
+import { saveType, updateType, deleteType } from '@models/Type'
 
 const router = express.Router()
 
 const handleError = (err: any, res: Response) => {
-  console.error("reason", err.reason)
-  res.json({ success: 0, err: err.reason.toString() })
+  res.json({ success: 0, err: err.toString() })
 }
 
 router.get('/', (req, res) => {
@@ -14,9 +13,9 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const item = req.body
-    const savedItem = await saveItem(item)
-    res.json({ success: 1, savedItem })
+    const type = req.body
+    const savedType = await saveType(type)
+    res.json({ success: 1, savedType })
   } catch (err) {
     handleError(err, res)
   }
@@ -25,7 +24,7 @@ router.post('/', async (req, res) => {
 router.put('/', async (req, res) => {
   try {
     const item = req.body
-    const updatedItem = await updateItem(item)
+    const updatedItem = await updateType(item)
     res.json({ success: 1, updatedItem })
   } catch (err) {
     handleError(err, res)
@@ -35,7 +34,7 @@ router.put('/', async (req, res) => {
 router.delete('/', async (req, res) => {
   try {
     const _id: any = req.query._id
-    const deletedItem = await deleteItem(_id)
+    const deletedItem = await deleteType(_id)
     res.json({ success: 1, deletedItem })
   } catch (err) {
     handleError(err, res)
