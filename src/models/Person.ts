@@ -20,7 +20,7 @@ export async function getPersonsByUser(userId: string) {
     })
 }
 
-export async function savePerson(person: PersonDocument) {
+export async function savePerson(person: any) {
     return new Promise((resolve, reject) => {
         const newPerson = new Person(person)
         newPerson

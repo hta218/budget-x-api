@@ -9,7 +9,7 @@ export type UserDocument = mongoose.Document & {
 
 const userSchema = new mongoose.Schema({
     name: String,
-    email: String,
+    email: { type: String, required: false },
     persons: [{ type: mongoose.Types.ObjectId, ref: "Person" }]
 }, { timestamps: true });
 

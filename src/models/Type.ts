@@ -22,7 +22,7 @@ export async function getTypesByUser(userId: string) {
     })
 }
 
-export async function saveType(type: TypeDocument) {
+export async function saveType(type: any) {
     return new Promise((resolve, reject) => {
         const newType = new Type(type)
         newType
