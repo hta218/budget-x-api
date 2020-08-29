@@ -1,5 +1,5 @@
 import express, { Response } from 'express'
-import { initUser, updateUser } from '@models/User'
+import { initUser, updateUser, getAllUsers } from '@models/User'
 import { savePerson, PersonDocument } from '@models/Person'
 import { saveType } from '@models/Type'
 
@@ -33,10 +33,11 @@ router.get('/init', async (req, res) => {
   } catch (err) { handleError(err, res) }
 })
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    // TODO: get all users
-    res.json({ success: 1, message: "WIP" })
+		// TODO: get all users
+		const users = await getAllUsers()
+    res.json({ success: 1, users })
   } catch (err) { handleError(err, res) }
 })
 
