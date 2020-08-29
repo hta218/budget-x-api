@@ -9,6 +9,11 @@ import { getUserById } from '@models/User'
 const router = express.Router()
 
 const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
+	if (req.method === "DELETE") {
+		next()
+		return
+	}
+
 	const { userId } = req.query
 	if (!userId) {
 		res.json({ success: 0, message: "Missing user's id" })

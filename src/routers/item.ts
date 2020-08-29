@@ -8,7 +8,7 @@ const handleError = (err: any, res: Response) => {
 }
 
 router.get('/', (req, res) => {
-  res.json({ msg: 'get item ok' })
+  res.json({ success: 1, message: 'Working in progress' })
 })
 
 router.post('/', async (req, res) => {
