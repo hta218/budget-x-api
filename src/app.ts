@@ -74,11 +74,11 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     const path = req.path;
-    res.on('finish', () => {
-        console.log(`${req.method} ${path} -- ${res.statusCode}`)
-    })
+    res.on("finish", () => {
+        console.log(`${req.method} ${path} -- ${res.statusCode}`);
+    });
     next();
-})
+});
 
 app.use(
     express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })

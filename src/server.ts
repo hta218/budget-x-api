@@ -1,5 +1,5 @@
 import errorHandler from "errorhandler";
-import 'module-alias/register';
+import "module-alias/register";
 import app from "./app";
 
 /**
